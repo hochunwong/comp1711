@@ -24,7 +24,7 @@ int main()
     for (int i = 0; i < num_lines; i++) {
         scanf("%d", &number);
         fprintf(file, "%d\n", number);
-        sum += number;
+        sum = sum + number;
     }
 
     mean = sum / num_lines;
