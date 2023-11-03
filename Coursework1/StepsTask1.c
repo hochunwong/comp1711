@@ -1,3 +1,5 @@
+// Author: Ho Chun Wong [sc23hcw]
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -43,13 +45,36 @@ void tokeniseRecord(const char *input, const char *delimiter,
 
 // Complete the main function
 int main() {
+    // main's variables
     char line[100];
-    
+    int i = 0;
+    char temp[100];
+
     // open file
-    FILE *file = open_file("FitnessData_2023.csv", "r");
-    while (fgets(line, 100, file) != NULL) {
-        printf("%s", lineBuffer);
+    FILE *file = fopen("FitnessData_2023.csv", "r");
+    if (file == NULL) {
+        printf("Unable to open file");
+        return 1;
     }
+
+    // read file & save to ara ara
+    while (fgets(line, 100, file) != NULL) {
+        tokeniseRecord(line, ",", recordArray[i].date, recordArray[i].time, temp);
+        // printf("%s", temp);
+        recordArray[i].steps = atoi(temp);
+        i = i + 1;
+    }
+
+    // close file
     fclose(file);
+
+    // output record count
+    printf("Number of records in file: %d\n", i);
+
+    // output first 3 records
+    for (int x=0; x<3; x++) {
+        printf("%s/%s/%d\n", recordArray[x].date, recordArray[x].time, recordArray[x].steps);
+    }
+
     return 0;
 }
