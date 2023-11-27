@@ -46,8 +46,27 @@ void add_new_node(node* linked_list)
  */
 void remove_node(node* linked_list, int pos)
 {
-    // write me
-    // be extra careful about removing the first and the last item :)
+    node* prevNode, *toBeDelNode, *nextNode;
+
+    if (pos > length(linked_list)) {
+        printf("Error 404, Node Not Found");
+    }
+
+    //go up to prevnode, no need to check if null cuz pos<len
+    prevNode = linked_list;
+    for (int i=0; i++; i<pos) {
+        prevNode = prevNode->next;
+    }
+
+    toBeDelNode = prevNode->next;
+    nextNode = toBeDelNode->next;
+
+    //delete node
+    if (nextNode == NULL) {
+        prevNode->next = NULL;
+    } else {
+        prevNode->next = nextNode;
+    }
 }
 
 
