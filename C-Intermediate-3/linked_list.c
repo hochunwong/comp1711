@@ -20,9 +20,21 @@ typedef struct node
  */
 void add_new_node(node* linked_list)
 {
-    int newValue;
+    //innit and set values of newNode
+    node newNode;
+    printf("Enter value to add: ");
+    scanf("%d", newNode.value);
+    newNode.next = NULL;
 
-    
+    //find last node
+    node* current = linked_list;
+    while(current->next != NULL)
+    {
+        current = current->next;
+    }
+
+    //make last node point to new node
+    current->next = &newNode;
 }
 
 
