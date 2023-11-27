@@ -59,7 +59,13 @@ void remove_node(node* linked_list, int pos)
  */
 void print_linked_list(node* linked_list) 
 {
-    // write me
+    node* current = linked_list;
+    while(current->next != NULL)
+    {
+        printf("%d", current->value);
+        current = current->next;
+    }
+    printf("%d", current->value);
 }
 
 /**
