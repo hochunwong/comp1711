@@ -48,8 +48,10 @@ void printMenu() {
     printf("E: Find the mean step count of all the records in the file\n");
     printf("F: Find the longest continuous period where the step count is above 500 steps\n");
     printf("Q: Quit\n");
+    printf("Enter choice: ");
     return;
 }
+
 
 int readFile() {
     char line[100];
@@ -61,9 +63,9 @@ int readFile() {
     scanf("%s", fileName);
 
     // open file
-    FILE *file = fopen("FitnessData_2023.csv", "r");
+    FILE *file = fopen(fileName, "r");
     if (file == NULL) {
-        printf("Unable to open file");
+        printf("Error: Could not find or open the file.");
         return 1;
     }
 
@@ -84,9 +86,34 @@ int readFile() {
 
 // Complete the main function
 int main() {
-   int fileNotOpen = 1; //has file been read?
+    int fileNotOpen = 1; //has file been read?
+    char option = "";
 
 
+    while (1) {
+        printMenu();
+        scanf("%c", &option);
+
+        switch (option) {
+            case 'A': //import file
+                break;
+            case 'B': //total num of records
+                break;
+            case 'C': //fewest
+                break;
+            case 'D': //most
+                break;
+            case 'E': //mean
+                break;
+            case 'F': //longest >500
+                break;
+            case 'Q': //exit
+                exit(1);
+            default:
+                printf("Invalid choice. Try again.");
+                break;
+        }
+    }
 }
 
 
