@@ -158,13 +158,15 @@ void longestPeriod(int recordNum) {
                     strcpy(start.time, tempStart.time);
                     strcpy(end.date, tempEnd.date);
                     strcpy(end.time, tempEnd.time);
+                    //kill
+                    currentPeriod = 0;
                 }
             }
         }
     }
 
-    printf("Longest period start: %s %s", start.date, start.time);
-    printf("Longest period end: %s %s", end.date, end.time);
+    printf("Longest period start: %s %s\n", start.date, start.time);
+    printf("Longest period end: %s %s\n", end.date, end.time);
 }
 
 
