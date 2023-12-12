@@ -51,16 +51,20 @@ void printMenu() {
     return;
 }
 
-int readFile(char *fileName) {
+int readFile() {
     char line[100];
     int i = 0;
     char temp[100];
+    char fileName[100];
+
+    printf("Input filename: ");
+    scanf("%s", fileName);
 
     // open file
     FILE *file = fopen("FitnessData_2023.csv", "r");
     if (file == NULL) {
         printf("Unable to open file");
-        return 0;
+        return 1;
     }
 
     // read file & save to ara ara
@@ -73,14 +77,15 @@ int readFile(char *fileName) {
 
     // close file
     fclose(file);
-    return 1;
+    return 0;
 }
 
 
 
 // Complete the main function
 int main() {
-   int fileRead = 0;
+   int fileNotOpen = 1; //has file been read?
+
 
 }
 
