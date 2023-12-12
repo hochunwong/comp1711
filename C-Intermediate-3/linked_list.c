@@ -22,9 +22,14 @@ void add_new_node(node* linked_list)
 {
     //innit and set values of newNode
     node newNode;
+    int temp;
     printf("Enter value to add: ");
-    scanf("%d", newNode.value);
+    scanf("%d", &temp);
+    newNode.value = temp;
     newNode.next = NULL;
+
+    node* pointerToNewNode;
+    pointerToNewNode = &newNode;
 
     //find last node
     node* current = linked_list;
@@ -34,7 +39,7 @@ void add_new_node(node* linked_list)
     }
 
     //make last node point to new node
-    current->next = &newNode;
+    current->next = pointerToNewNode;
 }
 
 
@@ -52,7 +57,13 @@ void remove_node(node* linked_list, int pos)
         printf("Error 404, Node Not Found");
     }
 
-    //go up to prevnode, no need to check if null cuz pos<len
+    //if first node
+    if (pos==0) {
+        linked_list = linked_list->next;
+        return;
+    }
+
+    //go up to prevnode, no need to check if null cuz pos<len and !first
     prevNode = linked_list;
     for (int i=0; i++; i<pos) {
         prevNode = prevNode->next;
@@ -67,6 +78,8 @@ void remove_node(node* linked_list, int pos)
     } else {
         prevNode->next = nextNode;
     }
+
+    return;
 }
 
 
@@ -79,12 +92,14 @@ void remove_node(node* linked_list, int pos)
 void print_linked_list(node* linked_list) 
 {
     node* current = linked_list;
+    printf("%d\n", current->value);
+    printf("%d\n", current->next);
+
     while(current->next != NULL)
     {
-        printf("%d", current->value);
         current = current->next;
+        //printf("%d\n", current->value);
     }
-    printf("%d", current->value);
 }
 
 /**
@@ -118,4 +133,7 @@ int main()
     node* linked_list = &first;
 
     printf("%d\n", length(linked_list));
+
+    add_new_node(linked_list);
+    print_linked_list(linked_list);
 }
