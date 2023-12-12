@@ -83,6 +83,21 @@ int readFile() {
 }
 
 
+void findFewest(int recordArraySize) {
+    FITNESS_DATA fewest;
+    fewest.steps = 0;
+
+    for (int i=0; i<=recordArraySize; i++) {
+        if (recordArray[i].steps < fewest.steps) {
+            fewest = recordArray[i];
+        }
+    }
+
+    printf("Fewest steps: %s %s\n", fewest.date, fewest.time);
+    return;
+}
+
+
 // Complete the main function
 int main() {
     int fileNotOpen = 1; //has file been read?
@@ -101,6 +116,7 @@ int main() {
                 printf("Total records: %d\n", recordNum);
                 break;
             case 'C': //fewest
+                findFewest(recordNum);
                 break;
             case 'D': //most
                 break;
