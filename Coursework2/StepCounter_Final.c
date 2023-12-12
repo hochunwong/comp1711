@@ -60,13 +60,13 @@ int readFile() {
     char fileName[100];
 
     printf("Input filename: ");
-    scanf("%s", fileName);
+    scanf("%s", &fileName);
 
     // open file
     FILE *file = fopen(fileName, "r");
     if (file == NULL) {
-        printf("Error: Could not find or open the file.");
-        return 1;
+        printf("Error: Could not find or open the file.\n");
+        exit(0);
     }
 
     // read file & save to ara ara
@@ -79,25 +79,26 @@ int readFile() {
 
     // close file
     fclose(file);
-    return 0;
+    return i;
 }
-
 
 
 // Complete the main function
 int main() {
     int fileNotOpen = 1; //has file been read?
-    char option = "";
-
+    char option[100];
+    int recordNum = 0;
 
     while (1) {
         printMenu();
-        scanf("%c", &option);
+        scanf("%s", &option);
 
-        switch (option) {
+        switch (option[0]) {
             case 'A': //import file
+                recordNum = readFile();
                 break;
             case 'B': //total num of records
+                printf("Total records: %d\n", recordNum);
                 break;
             case 'C': //fewest
                 break;
@@ -110,7 +111,7 @@ int main() {
             case 'Q': //exit
                 exit(1);
             default:
-                printf("Invalid choice. Try again.");
+                printf("Invalid choice. Try again.\n");
                 break;
         }
     }
