@@ -162,6 +162,9 @@ void longestPeriod(int recordNum) {
             }
         }
     }
+
+    printf("Longest period start: %s %s", start.date, start.time);
+    printf("Longest period end: %s %s", end.date, end.time);
 }
 
 
