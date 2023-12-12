@@ -85,11 +85,15 @@ int readFile() {
 
 void findFewest(int recordArraySize) {
     FITNESS_DATA fewest;
-    fewest.steps = 0;
+    fewest.steps = recordArray[0].steps;
+    strcpy(fewest.date, recordArray[0].date);
+    strcpy(fewest.time, recordArray[0].time);
 
-    for (int i=0; i<=recordArraySize; i++) {
+    for (int i = 0; i < recordArraySize; i++) {
         if (recordArray[i].steps < fewest.steps) {
-            fewest = recordArray[i];
+            strcpy(fewest.date, recordArray[i].date);
+            strcpy(fewest.time, recordArray[i].time);
+            fewest.steps = recordArray[i].steps;
         }
     }
 
