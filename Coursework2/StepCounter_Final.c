@@ -60,7 +60,7 @@ int readFile() {
     char fileName[100];
 
     printf("Input filename: ");
-    scanf("%s", &fileName);
+    scanf("%s", fileName);
 
     // open file
     FILE *file = fopen(fileName, "r");
@@ -98,6 +98,25 @@ void findFewest(int recordArraySize) {
     }
 
     printf("Fewest steps: %s %s\n", fewest.date, fewest.time);
+    return;
+}
+
+
+void findMost(int recordArraySize) {
+    FITNESS_DATA most;
+    most.steps = recordArray[0].steps;
+    strcpy(most.date, recordArray[0].date);
+    strcpy(most.time, recordArray[0].time);
+
+    for (int i = 0; i < recordArraySize; i++) {
+        if (recordArray[i].steps > most.steps) {
+            strcpy(most.date, recordArray[i].date);
+            strcpy(most.time, recordArray[i].time);
+            most.steps = recordArray[i].steps;
+        }
+    }
+
+    printf("Most steps: %s %s\n", most.date, most.time);
     return;
 }
 
