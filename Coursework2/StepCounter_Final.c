@@ -135,22 +135,31 @@ void mean(int recordNum) {
 
 
 void longestPeriod(int recordNum) {
-    int longestPeriodLength = 0;
+    int longestPeriod = 0;
     int currentPeriod = 0;
-    FITNESS_DATA start, end, tempStart;
+    FITNESS_DATA start, end, tempStart, tempEnd;
 
     for (int i = 0; i < recordNum; i++) {
         if (recordArray[i].steps > 500) {
-            if (currentPeriod != 0) {
+            if (currentPeriod == 0) {
+                strcpy(tempStart.date, recordArray[i].date); //start current
+                strcpy(tempStart.time, recordArray[i].time);
                 currentPeriod = currentPeriod + 1;
-                strcpy(end.date, recordArray[i].date);
-                strcpy(end.time, recordArray[i].time);
             } else {
-
+                strcpy(tempEnd.date, recordArray[i].date); //continue current
+                strcpy(tempEnd.time, recordArray[i].time);
+                currentPeriod = currentPeriod + 1;
             }
-
         } else {
-            
+            if (currentPeriod != 0) {
+                if (currentPeriod > longestPeriod) { //update longest
+                    longestPeriod = currentPeriod;
+                    strcpy(start.date, tempStart.date);
+                    strcpy(start.time, tempStart.time);
+                    strcpy(end.date, tempEnd.date);
+                    strcpy(end.time, tempEnd.time);
+                }
+            }
         }
     }
 }
