@@ -134,6 +134,28 @@ void mean(int recordNum) {
 }
 
 
+void longestPeriod(int recordNum) {
+    int longestPeriodLength = 0;
+    int currentPeriod = 0;
+    FITNESS_DATA start, end, tempStart;
+
+    for (int i = 0; i < recordNum; i++) {
+        if (recordArray[i].steps > 500) {
+            if (currentPeriod != 0) {
+                currentPeriod = currentPeriod + 1;
+                strcpy(end.date, recordArray[i].date);
+                strcpy(end.time, recordArray[i].time);
+            } else {
+
+            }
+
+        } else {
+            
+        }
+    }
+}
+
+
 // Complete the main function
 int main() {
     int fileNotOpen = 1; //has file been read?
@@ -161,6 +183,7 @@ int main() {
                 mean(recordNum);
                 break;
             case 'F': //longest >500
+                longestPeriod(recordNum);
                 break;
             case 'Q': //exit
                 exit(1);
