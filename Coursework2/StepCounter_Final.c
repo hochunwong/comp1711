@@ -83,13 +83,13 @@ int readFile() {
 }
 
 
-void findFewest(int recordArraySize) {
+void findFewest(int recordNum) {
     FITNESS_DATA fewest;
     fewest.steps = recordArray[0].steps;
     strcpy(fewest.date, recordArray[0].date);
     strcpy(fewest.time, recordArray[0].time);
 
-    for (int i = 0; i < recordArraySize; i++) {
+    for (int i = 0; i < recordNum; i++) {
         if (recordArray[i].steps < fewest.steps) {
             strcpy(fewest.date, recordArray[i].date);
             strcpy(fewest.time, recordArray[i].time);
@@ -102,13 +102,13 @@ void findFewest(int recordArraySize) {
 }
 
 
-void findMost(int recordArraySize) {
+void findMost(int recordNum) {
     FITNESS_DATA most;
     most.steps = recordArray[0].steps;
     strcpy(most.date, recordArray[0].date);
     strcpy(most.time, recordArray[0].time);
 
-    for (int i = 0; i < recordArraySize; i++) {
+    for (int i = 0; i < recordNum; i++) {
         if (recordArray[i].steps > most.steps) {
             strcpy(most.date, recordArray[i].date);
             strcpy(most.time, recordArray[i].time);
@@ -116,8 +116,21 @@ void findMost(int recordArraySize) {
         }
     }
 
-    printf("Most steps: %s %s\n", most.date, most.time);
+    printf("Largest steps: %s %s\n", most.date, most.time);
     return;
+}
+
+
+void mean(int recordNum) {
+    int totalSteps = 0;
+    int meanSteps;
+
+    for (int i = 0; i < recordNum; i++) {
+        totalSteps = totalSteps + recordArray[i].steps;
+    }
+
+    meanSteps = totalSteps / recordNum;
+    printf("Mean step count: %d\n", meanSteps);
 }
 
 
@@ -142,8 +155,10 @@ int main() {
                 findFewest(recordNum);
                 break;
             case 'D': //most
+                findMost(recordNum);
                 break;
             case 'E': //mean
+                mean(recordNum);
                 break;
             case 'F': //longest >500
                 break;
