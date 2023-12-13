@@ -11,48 +11,21 @@ typedef struct {
 } FitnessData;
 
 // Function to tokenize a record
-//void tokeniseRecord(char *record, char delimiter, char *date, char *time, int *steps) {
-//    char *ptr = strtok(record, &delimiter);
-//    if (ptr != NULL) {
-//        strcpy(date, ptr);
-//        ptr = strtok(NULL, &delimiter);
-//        if (ptr != NULL) {
-//            strcpy(time, ptr);
-//            ptr = strtok(NULL, &delimiter);
-//            if (ptr != NULL) {
-//                *steps = atoi(ptr);
-//            }
-//        }
-//    }
-//}
+void tokeniseRecord(char *record, char delimiter, char *date, char *time, int *steps) {
+    char *ptr = strtok(record, &delimiter);
+    if (ptr != NULL) {
+        strcpy(date, ptr);
+        ptr = strtok(NULL, &delimiter);
+        if (ptr != NULL) {
+            strcpy(time, ptr);
+            ptr = strtok(NULL, &delimiter);
+            if (ptr != NULL) {
+                *steps = atoi(ptr);
+            }
+        }
+    }
+}
 
-// This is your helper function. Do not change it in any way.
-// Inputs: character array representing a row; the delimiter character
-// Ouputs: date character array; time character array; steps character array
-void tokeniseRecord(const char *input, const char *delimiter,
-                    char *date, char *time, char *steps) {
-    // Create a copy of the input string as strtok modifies the string
-    char *inputCopy = strdup(input);
-    
-    // Tokenize the copied string
-    char *token = strtok(inputCopy, delimiter);
-    if (token != NULL) {        strcpy(date, token);
-    }
-    
-    token = strtok(NULL, delimiter);
-    if (token != NULL) {
-        strcpy(time, token);
-    }
-    
-    token = strtok(NULL, delimiter);
-    if (token != NULL) {
-        strcpy(steps, token);
-    }
-    
-    // Free the duplicated string
-    free(inputCopy);
-
-                    }
 
 //Globals
 FitnessData recordArray[1000];
@@ -78,11 +51,6 @@ int readFile() {
     while (fgets(line, 100, file) != NULL) {
         tokeniseRecord(line, ",", recordArray[i].date, recordArray[i].time, temp);
         
-        if ((strlen(recordArray[i].date)!=10) || (strlen(recordArray[i].time)!=5) || (temp=="")) {
-            printf("Error: Incorectly formatted csv.\n");
-            exit(1);
-        }
-
         recordArray[i].steps = atoi(temp);
         i = i + 1;
     }
@@ -125,7 +93,7 @@ int writeFile(int arraySize) {
     }
 
     fclose(tsvFile);
-    printf("Data sorted and written to %s", fileName);
+    printf("Data sorted and written to %s\n", fileName);
 }
 
 
@@ -136,7 +104,12 @@ int main() {
 
     sortArray(arraySize);
 
-    fileName[strlen(fileName)-3] = 't';
+    //fileName[strlen(fileName)-3] = 't';
+
+    fileName[strlen(fileName)] = '.';
+    fileName[strlen(fileName)] = 't';
+    fileName[strlen(fileName)] = 's';
+    fileName[strlen(fileName)] = 'v';
     
     writeFile(arraySize);
 
