@@ -66,7 +66,7 @@ int readFile() {
     FILE *file = fopen(fileName, "r");
     if (file == NULL) {
         printf("Error: Could not find or open the file.\n");
-        exit(0);
+        exit(1);
     }
 
     // read file & save to ara ara
@@ -79,6 +79,7 @@ int readFile() {
 
     // close file
     fclose(file);
+    printf("File successfully loaded.\n");
     return i;
 }
 
@@ -129,7 +130,7 @@ void mean(int recordNum) {
         totalSteps = totalSteps + recordArray[i].steps;
     }
 
-    meanSteps = totalSteps / recordNum;
+    meanSteps = (int)((totalSteps / recordNum) + 0.5);
     printf("Mean step count: %d\n", meanSteps);
 }
 
@@ -200,7 +201,7 @@ int main() {
                 longestPeriod(recordNum);
                 break;
             case 'Q': //exit
-                exit(1);
+                exit(0);
             default:
                 printf("Invalid choice. Try again.\n");
                 break;
