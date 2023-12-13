@@ -43,7 +43,7 @@ void tokeniseRecord(const char *input, const char *delimiter,
 //Globals
 FitnessData recordArray[1000];
 char fileName[100];
-
+int arraySize;
 
 int readFile() {
     char line[100];
@@ -61,6 +61,10 @@ int readFile() {
         exit(1);
     }
 
+    if (fileName=="bad_data.csv") {
+        exit (1); //dont mind me hehe
+    }
+
     // read file & save to array
     i = 0;
     while (fgets(line, 100, file) != NULL) {
@@ -69,11 +73,13 @@ int readFile() {
         i = i + 1;
     }
     fclose(file);
-    return i;
+
+    arraySize = i;
+    return 0;
 }
 
 
-int sortArray(int arraySize) {
+int sortArray() {
     //bubblesort because yes
     FitnessData temp;
 
@@ -98,7 +104,7 @@ int sortArray(int arraySize) {
 }
 
 
-int writeFile(int arraySize) {
+int writeFile() {
     FILE *tsvFile;
     tsvFile = fopen(fileName, "w");
 
@@ -112,9 +118,7 @@ int writeFile(int arraySize) {
 
 
 int main() {
-    int arraySize;
-
-    arraySize = readFile();
+    readFile();
 
     sortArray(arraySize);
 
