@@ -164,10 +164,10 @@ void longestPeriod(int recordNum) {
                     strcpy(start.time, tempStart.time);
                     strcpy(end.date, tempEnd.date);
                     strcpy(end.time, tempEnd.time);
-                    //kill
-                    currentPeriod = 0;
                 }
             }
+            //kill
+            currentPeriod = 0;
         }
     }
 
