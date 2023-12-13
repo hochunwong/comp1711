@@ -47,9 +47,9 @@ int readFile() {
 
     // read file & save
     while (fgets(line, 100, file) != NULL) {
-        tokeniseRecord(line, ",", recordArray[i].date, recordArray[i].time, temp);
+        tokeniseRecord(line, ",", recordArray[i].date, recordArray[i].time, recordArray[i].steps);
         
-        if ((recordArray[i].date=="") || (recordArray[i].time=="") || (temp=="")) {
+        if ((strlen(recordArray[i].date)!=10) || (strlen(recordArray[i].time)!=5) || (recordArray[i].steps)) {
             printf("Error: Incorrectly formatted file.\n");
             exit(1);
         }
@@ -61,6 +61,45 @@ int readFile() {
     return i;
 }
 
-int main() {
 
+int sortArray(int arraySize) {
+    //bubblesort because yes
+    FitnessData temp;
+
+    for (int i = 0; i < (arraySize-1); i++) {
+        for (int j = 0; j < (arraySize-i-1); j++) {
+            if (recordArray[j].steps > recordArray[j+1].steps) {
+                //swap
+                strcpy(temp.date, recordArray[j].date);
+                strcpy(temp.time, recordArray[j].time);
+                temp.steps = recordArray[j].steps;
+
+                strcpy(recordArray[j].date, recordArray[j+1].date);
+                strcpy(recordArray[j].time, recordArray[j+1].time);
+                recordArray[j].steps = recordArray[j+1].steps;
+
+                strcpy(recordArray[j+1].date, temp.date);
+                strcpy(recordArray[j+1].time, temp.time);
+                recordArray[j+1].steps = temp.steps;
+            }
+        }
+    }
+}
+
+
+int writeFile() {
+
+}
+
+
+int main() {
+    int arraySize;
+
+    arraySize = readFile();
+
+    sortArray(arraySize);
+
+    for (int x; x<arraySize; x++) {
+        printf("%d\n", recordArray[x]);
+    }
 }

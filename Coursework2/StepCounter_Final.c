@@ -129,14 +129,16 @@ void findMost(int recordNum) {
 
 void mean(int recordNum) {
     int totalSteps = 0;
-    int meanSteps;
+    float meanSteps;
+    int roundedMean;
 
     for (int i = 0; i < recordNum; i++) {
         totalSteps = totalSteps + recordArray[i].steps;
     }
 
     meanSteps = totalSteps / recordNum;
-    printf("Mean step count: %i\n", meanSteps);
+    roundedMean = round(meanSteps);
+    printf("Mean step count: %i\n", roundedMean);
 }
 
 
