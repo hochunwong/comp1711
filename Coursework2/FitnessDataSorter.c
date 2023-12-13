@@ -56,17 +56,16 @@ void tokeniseRecord(const char *input, const char *delimiter,
 
 //Globals
 FitnessData recordArray[1000];
+char fileName[100];
 
 
 int readFile() {
     char line[100];
     int i = 0;
     char temp[100];
-    char fileName[100];
-    char *delim = ",";
 
     printf("Enter Filename: ");
-    scanf("%s", fileName);
+    scanf("%99s", fileName);
 
     // open file
     FILE *file = fopen(fileName, "r");
@@ -81,7 +80,7 @@ int readFile() {
         
         if ((strlen(recordArray[i].date)!=10) || (strlen(recordArray[i].time)!=5) || (temp=="")) {
             printf("Error: Incorectly formatted csv.\n");
-            exit(1); //find incorectly formatted csv
+            exit(1);
         }
 
         recordArray[i].steps = atoi(temp);
@@ -117,8 +116,16 @@ int sortArray(int arraySize) {
 }
 
 
-int writeFile() {
+int writeFile(int arraySize) {
+    FILE *tsvFile;
+    tsvFile = fopen(fileName, "w");
 
+    for (int x=0; x<arraySize; x++) {
+        fprintf(tsvFile, "%s\t%s\t%d\n", recordArray[x].date, recordArray[x].time, recordArray[x].steps);
+    }
+
+    fclose(tsvFile);
+    printf("Data sorted and written to %s", fileName);
 }
 
 
@@ -129,5 +136,9 @@ int main() {
 
     sortArray(arraySize);
 
+    fileName[strlen(fileName)-3] = 't';
     
+    writeFile(arraySize);
+
+    exit(0);
 }
