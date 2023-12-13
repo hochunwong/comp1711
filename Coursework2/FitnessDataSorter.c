@@ -27,6 +27,10 @@ void tokeniseRecord(char *record, char delimiter, char *date, char *time, int *s
 
 
 int main() {
+    char fileName[100];
+
+    printf("Enter Filename: ");
+    scanf("%s", fileName);
     
-    
+    printf("\nfilename = %s", fileName);
 }
