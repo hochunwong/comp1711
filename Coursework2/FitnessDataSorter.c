@@ -25,12 +25,42 @@ void tokeniseRecord(char *record, char delimiter, char *date, char *time, int *s
     }
 }
 
+//Globals
+FitnessData recordArray[1000];
 
-int main() {
+
+int readFile() {
+    char line[100];
+    int i = 0;
+    char temp[100];
     char fileName[100];
 
     printf("Enter Filename: ");
     scanf("%s", fileName);
-    
-    printf("\nfilename = %s", fileName);
+
+    // open file
+    FILE *file = fopen(fileName, "r");
+    if (file == NULL) {
+        printf("Error: Could not find or open the file.\n");
+        exit(1);
+    }
+
+    // read file & save
+    while (fgets(line, 100, file) != NULL) {
+        tokeniseRecord(line, ",", recordArray[i].date, recordArray[i].time, temp);
+        
+        if ((recordArray[i].date=="") || (recordArray[i].time=="") || (temp=="")) {
+            printf("Error: Incorrectly formatted file.\n");
+            exit(1);
+        }
+
+        recordArray[i].steps = atoi(temp);
+        i = i + 1;
+    }
+    fclose(file);
+    return i;
+}
+
+int main() {
+
 }
