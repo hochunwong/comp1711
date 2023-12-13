@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "FitnessDataStruct.h"
 
 // Struct moved to header file
@@ -69,10 +70,14 @@ int readFile() {
         exit(1);
     }
 
-    // read file & save to ara ara
+    // read file & save
     while (fgets(line, 100, file) != NULL) {
         tokeniseRecord(line, ",", recordArray[i].date, recordArray[i].time, temp);
-        // printf("%s", temp);
+        
+        if ((recordArray[i].date==NULL) || (recordArray[i].time==NULL) || (temp==NULL)) {
+            exit(1); //find incorectly formatted csv
+        }
+
         recordArray[i].steps = atoi(temp);
         i = i + 1;
     }
@@ -130,8 +135,8 @@ void mean(int recordNum) {
         totalSteps = totalSteps + recordArray[i].steps;
     }
 
-    meanSteps = (int)((totalSteps / recordNum) + 0.5);
-    printf("Mean step count: %d\n", meanSteps);
+    meanSteps = totalSteps / recordNum;
+    printf("Mean step count: %i\n", meanSteps);
 }
 
 
@@ -173,13 +178,12 @@ void longestPeriod(int recordNum) {
 
 // Complete the main function
 int main() {
-    int fileNotOpen = 1; //has file been read?
     char option[100];
     int recordNum = 0;
 
     while (1) {
         printMenu();
-        scanf("%s", &option);
+        scanf("%99s", option);
 
         switch (option[0]) {
             case 'A': //import file
