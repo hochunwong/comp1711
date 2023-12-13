@@ -77,7 +77,14 @@ int readFile() {
 
     // read file & save
     while (fgets(line, 100, file) != NULL) {
-        tokeniseRecord(line, delim, recordArray[i].date, recordArray[i].time, recordArray[i].steps);
+        tokeniseRecord(line, ",", recordArray[i].date, recordArray[i].time, temp);
+        
+        if ((strlen(recordArray[i].date)!=10) || (strlen(recordArray[i].time)!=5) || (temp=="")) {
+            printf("Error: Incorectly formatted csv.\n");
+            exit(1); //find incorectly formatted csv
+        }
+
+        recordArray[i].steps = atoi(temp);
         i = i + 1;
     }
     fclose(file);
@@ -122,7 +129,5 @@ int main() {
 
     sortArray(arraySize);
 
-    for (int x; x<arraySize; x++) {
-        printf("%d\n", recordArray[x]);
-    }
+    
 }
