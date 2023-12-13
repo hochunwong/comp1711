@@ -137,7 +137,7 @@ void mean(int recordNum) {
     }
 
     meanSteps = totalSteps / recordNum;
-    roundedMean = round(meanSteps);
+    roundedMean = round(meanSteps+0.5);
     printf("Mean step count: %i\n", roundedMean);
 }
 
